@@ -24,7 +24,7 @@ if __name__ == "__main__":
 
     print(conn.recv(1024).decode())
 
-    filepath = 'recv/'+filename
+    filepath = 'files/'+filename
     if os.path.isfile(filepath):
         print('File already exists!')
         exit(-1)
