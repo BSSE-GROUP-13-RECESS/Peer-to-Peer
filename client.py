@@ -1,5 +1,6 @@
 import os.path
 import socket
+import sys
 import time
 import helpers
 
@@ -33,7 +34,10 @@ def connect(address):
 
 def get_file(filename):
     peers = helpers.sort_peers(helpers.configs.peers)
+
     for peer in peers:
+        if peer == helpers.configs.identifier:
+            continue
         conn, rtt = connect(peer)
         if conn is None:
             print('Failed to connect to host ' + peer)
@@ -62,6 +66,8 @@ def get_file(filename):
 def update_peer_info():
     peers = helpers.configs.peers
     for peer in peers:
+        if peer == helpers.configs.identifier:
+            continue
         addr = peers[peer]['ip']
         connection, rtt = connect(addr)
         if connection is not None:
@@ -72,16 +78,10 @@ def update_peer_info():
 
 
 if __name__ == "__main__":
-    pass
-    # update_peers()
-    # command = ''
-    # try:
-    #     command = sys.argv[1]
-    # except IndexError:
-    #     print("please provide file name or --rtt e.g=> python client.py filename")
-    #     exit(-1)
-    #
-    # if command == '--rtt':
-    #     print(get_rtt())
-    # else:
-    #     get_file(command)
+    command = ''
+    try:
+        command = sys.argv[1]
+    except IndexError:
+        print("please provide file name or --rtt e.g=> python client.py filename")
+        exit(-1)
+    get_file(command)

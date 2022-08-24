@@ -1,35 +1,12 @@
 import subprocess
-import time
-import requests
-import os
 import json
-
-if not os.path.isfile('configurations.py'):
-    import uuid
-
-    file = open('configurations.py', 'w')
-    file.write("identifier = '" + str(uuid.uuid4()) + "'")
-    file.write("\npeers = {}")
-    file.close()
-
 import configurations
 configs = configurations
 
 
-def get_rtt(url):
-    elapsed_time = -1
-    try:
-        initial_time = time.time()  # Store the time when request is sent
-        req = requests.get(url)
-        req.close()
-        ending_time = time.time()  # Time when acknowledged the request
-        elapsed_time = ending_time - initial_time
-    except:
-        pass
-    return round(elapsed_time, 3)
-
-
 def get_wifi_ip():
+    if configs.identifier.startswith('default'):
+        return configs.ip
     try:
         addresses = str(subprocess.check_output('ifconfig | grep -A 4 wl', shell=True)).split()
         ip = ""
@@ -37,9 +14,10 @@ def get_wifi_ip():
             if addresses[i] == 'inet':
                 ip = addresses[i + 1]
                 break
+        update_configurations('ip', "'"+ip+"'")
     except:
-        ip = '127.0.0.1'
-    return '127.0.0.1'
+        ip = configs.ip
+    return ip
 
 
 def update_configurations(name, config):
@@ -86,5 +64,7 @@ def add_peers(peer_str):
     update_configurations('peers', str(configs.peers))
 
 
-# if __name__ == "__main__":
-
+if configs.identifier == '':
+    import uuid
+    configs.identifier = str(uuid.uuid4())
+    update_configurations('identifier', "'"+configs.identifier+"'")
