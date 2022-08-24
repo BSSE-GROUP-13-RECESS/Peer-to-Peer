@@ -8,6 +8,7 @@ import helpers
 def connect(address):
     elapsed_time = -1
     conn = None
+    helpers.get_wifi_ip()
     try:
         initial_time = time.time()  # Store the time when request is sent
 
@@ -24,7 +25,7 @@ def connect(address):
         if conn is None:
             elapsed_time = -1
         else:
-            msg = helpers.configs.identifier+'|'+str(round(elapsed_time, 3))
+            msg = helpers.configs.identifier+'|'+str(round(elapsed_time, 3))+'|'+helpers.configs.ip
             conn.send(msg.encode())
             helpers.add_peers(conn.recv(1024).decode())
     except:

@@ -14,10 +14,11 @@ def get_wifi_ip():
             if addresses[i] == 'inet':
                 ip = addresses[i + 1]
                 break
-        update_configurations('ip', "'"+ip+"'")
+        configs.ip = ip
+        update_configurations('ip', "'"+configs.ip+"'")
     except:
-        ip = configs.ip
-    return ip
+        pass
+    return configs.ip
 
 
 def update_configurations(name, config):

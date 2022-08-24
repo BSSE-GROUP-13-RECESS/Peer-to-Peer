@@ -24,11 +24,10 @@ if __name__ == "__main__":
 
     while True:
         c, addr = s.accept()
-        print('Got connection from', addr)
         msg = c.recv(1024).decode()
-
         info = msg.split('|')
-        peers[info[0]] = {'ip': addr, 'rtt': float(info[1])}
+        print('Got connection from', info[2])
+        peers[info[0]] = {'ip': info[2], 'rtt': float(info[1])}
         helpers.update_configurations('peers', str(peers))
         c.send(str(peers).encode())
 
