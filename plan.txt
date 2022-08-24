@@ -1,0 +1,33 @@
+# A node such as a desktop or laptop should represent a single cluster
+At the start, only two nodes (say laptops) are part of the network. You start
+node 1 and join node 2 to the network.
+A third node (and subsequent nodes) should be able to join and/or leave the
+network
+        o If a node leaves the network, the resources that it holds should be
+        relocated to another node.
+        o If a node rejoins the network, its previous resources should be re-
+        allocated to it
+        o You may develop a simple algorithm to effect the above operations (for
+        example, the resources could be relocated to the closest node. The
+        distance can be measured by the RTTs between the nodes)
+• A client application should be able to search (query) one of the live nodes for a
+specific item hosted. The query should be routed appropriately to the node
+that has the resource. The response should indicate which node provided the
+response.
+• You may need to build a simple LAN to mimic an overlay network for the P2P
+system
+
+
+
+
+
+
+
+
+3. Additional Information
+• You can make extensive use of sockets and write out your code in your
+preferred programming language (If you can do Python, great but not a
+requirement)
+• The resource to be shared are simple text files (It should be possible for a
+single resource to be available on two nodes)
+• The
