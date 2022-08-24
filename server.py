@@ -42,8 +42,10 @@ if __name__ == "__main__":
                 file = open(filepath, 'rb')
                 c.sendfile(file)
                 file.close()
+                print('Found')
             else:
                 c.send('201'.encode())
+                print('Found|')
             c.close()
         except BrokenPipeError:
             pass
