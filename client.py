@@ -48,7 +48,7 @@ def get_file(filename):
             print('File already exists!')
             exit(-1)
         conn.send(filename.encode())
-        msg = conn.recv(1024)
+        msg = conn.recv(1024).decode()
 
         if msg == '201':
             print('Specified file does not exist at host ' + peer)
