@@ -66,7 +66,3 @@ def main():
                 c.close()
             except BrokenPipeError:
                 pass
-
-
-if __name__ == "__main__":
-    pass

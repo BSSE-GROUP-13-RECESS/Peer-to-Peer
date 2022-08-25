@@ -183,9 +183,3 @@ def main():
             print("Invalid command, type help for all commands")
         else:
             functions[commands.index(command)](inp)
-
-
-if __name__ == "__main__":
-    pass
-    # print(helpers.sort_peers(helpers.configs.peers))
-    # main()
