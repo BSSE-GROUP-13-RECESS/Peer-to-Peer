@@ -1,3 +1,4 @@
+import platform
 import subprocess
 import json
 import configurations
@@ -8,18 +9,25 @@ def get_wifi_ip():
     if configs.identifier.startswith('default'):
         return configs.ip
     try:
-        addresses = str(subprocess.check_output('ifconfig | grep -A 4 wl', shell=True)).split()
         ip = ""
-        for i in range(len(addresses)):
-            if addresses[i] == 'inet':
-                ip = addresses[i + 1]
-                break
+        if platform.system() == "Windows":
+            addresses = str(subprocess.check_output('ipconfig | grep -A 6 Wi-Fi', shell=True).decode()).split('\n')
+            for i in range(len(addresses)):
+                addr = addresses[i].strip()
+                if addr.startswith('IPv4'):
+                    ip = addr.split(':')[1].strip()
+                    break
+        else:
+            addresses = str(subprocess.check_output('ifconfig | grep -A 4 wl', shell=True)).split()
+            for i in range(len(addresses)):
+                if addresses[i] == 'inet':
+                    ip = addresses[i + 1]
+                    break
         configs.ip = ip
         update_configurations('ip', "'"+configs.ip+"'")
     except:
         pass
     return configs.ip
-
 
 def update_configurations(name, config):
     file = open('configurations.py', 'r')
