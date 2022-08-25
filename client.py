@@ -17,7 +17,7 @@ def connect(address):
         try:
             conn.connect((address, port))
         except OSError:
-            print('Host cannot be found')
+            print('Host '+address+' cannot be found')
             conn = None
 
         ending_time = time.time()  # Time when acknowledged the request
