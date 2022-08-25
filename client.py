@@ -172,7 +172,7 @@ def reallocate_resources():
 
 
 def main():
-    relocate_resources()
+    reallocate_resources()
     commands = ['get_file', 'known_peers', 'upload', 'list_files', 'leave', 'help']
     functions = [get_file, known_peers, upload, list_files, leave, help]
     help()
