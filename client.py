@@ -163,7 +163,7 @@ def reallocate_resources():
         if conn is None:
             continue
         else:
-            conn.send('reallocate|'+helpers.configs.identifier)
+            conn.send(str('reallocate|'+helpers.configs.identifier).encode())
             conn.close()
             if os.path.isfile(res+'.zip'):
                 os.remove(res+'.zip')
