@@ -49,7 +49,7 @@ def sort_peers(peers):
     arr = arr + negs
     for peer in peers:
         rtt = peers[peer]['rtt']
-        arr[arr.index(rtt)] = peers[peer]['ip']
+        arr[arr.index(rtt)] = peer
     return arr
 
 
