@@ -35,8 +35,8 @@ def main():
 
         msg = c.recv(1024).decode()
         if msg.startswith("--leave"):
-            c.close()
             s.close()
+            c.close()
             exit()
         elif msg.startswith('resource'):
             filename = msg.split('|')[1]
